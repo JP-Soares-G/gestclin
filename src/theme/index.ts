@@ -1,8 +1,10 @@
 export default {
     COLORS: {
-        BACKGROUND: '#FFF',
+        BACKGROUND: '#FFFFFF',
+        
         DARK: '#373A4D',
-        LIGHT: '#E5E5E5' 
+        LIGHT: '#E5E5E5' ,
+        ICON: '#8f92a9'
     },
     
     FONTS: {

@@ -1,6 +1,19 @@
+buildscript {
+    repositories {
+        gradlePluginPortal()
+    }
+    dependencies {
+        classpath 'gradle.plugin.com.onesignal:onesignal-gradle-plugin:[0.12.10, 0.99.99]'
+    }
+}
+
+apply plugin: 'com.onesignal.androidsdk.onesignal-gradle-plugin'
+
 apply plugin: "com.android.application"
 
 import com.android.build.OutputFile
+
+
 
 /**
  * The react.gradle file registers a task for each build variant (e.g. bundleDebugJsAndAssets
@@ -83,6 +96,20 @@ project.ext.react = [
 
 apply from: "../../node_modules/react-native/react.gradle"
 
+// apply from: "../../node_modules/react-native-vector-icons/fonts.gradle" // add by the author
+
+project.ext.vectoricons = [
+    iconFontNames: [ 'MaterialIcons.ttf', 
+    'EvilIcons.ttf', 
+    'MaterialCommunityIcons.ttf',
+    'FontAwesome.ttf',
+    'FontAwesome5.ttf',
+    'AntDesign.ttf',
+    'SimpleLineIcons.ttf',
+    'Entypo.tts' ] // Name of the font files you want to copy
+]
+
+apply from: "../../node_modules/react-native-vector-icons/fonts.gradle"
 /**
  * Set this to true to create two separate APKs instead of one:
  *   - An APK that only works on ARM devices

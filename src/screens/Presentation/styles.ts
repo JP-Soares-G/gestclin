@@ -1,13 +1,13 @@
 import styled from "styled-components/native";
-
+import {RFPercentage} from 'react-native-responsive-fontsize'
 export const Container = styled.View`
     flex: 1;
-    // background-color:  ${({theme}) => theme.COLORS.DARK};
+    background-color: ${({theme}) => theme.COLORS.BACKGROUND};
 `
 
 export const ImageBackground = styled.ImageBackground`
     width: 100%;
-    height: 400px;
+    height: ${RFPercentage(70)}px;
 `
 
 export const ContentWrapper = styled.View`
@@ -26,6 +26,4 @@ export const Text = styled.Text`
     font-family: ${({theme}) => theme.FONTS.REGULAR};
     font-size: 24px;
     text-transform: capitalize;
-    
-    
 `

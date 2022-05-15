@@ -4,7 +4,7 @@ export const Container = styled.View`
     flex: 1;
     height: 100%;
     justify-content: center;
-    // background-color:  ${({theme}) => theme.COLORS.DARK};
+    background-color:  ${({theme}) => theme.COLORS.BACKGROUND};
 `
 
 export const Wrapper = styled.View`
