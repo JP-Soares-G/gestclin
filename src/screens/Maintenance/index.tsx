@@ -3,15 +3,19 @@ import OneSignal from 'react-native-onesignal'
 import Input from '../../components/Input'
 import Button from '../../components/Button'
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons'
-import { BackButton, Container, Header, Title, Wrapper } from './styles'
-import axios from 'axios'
+import { BackButton, Container, Header, PickerContainer, PickerLabel, Title, Wrapper } from './styles'
 import { ScrollView } from 'react-native'
-import Succeed from '../Succeed'
+import { Picker } from '@react-native-picker/picker'
 
 const Maintenance = (props) => {
 
     const [message, setMessage] = useState("")
     const [title, setTitle] = useState("")
+    const [selectedSituation, setSelectedSituation] = useState()
+    const [equipLocation, setEquipLocation] = useState()
+    const [priority, setPriority] = useState()
+    const [symptoms, setSymptoms] = useState()
+    
     
     const sintomas = ["abaixo ou acima do nível", 
         "alarme",
@@ -71,7 +75,7 @@ const Maintenance = (props) => {
             </Header>
             <ScrollView>
                 <Wrapper>
-                    <Input value={title} onChangeText={setTitle} label="Nome" placeholder='Adicione seu nome.' />
+                    <Input value={title} onChangeText={setTitle} label="Solicitante" placeholder='Adicione seu nome.' />
                     <Input 
                         // style={{marginBottom: 32}} 
                         value={message} 
@@ -79,11 +83,42 @@ const Maintenance = (props) => {
                         label="Telefone"  
                         keyboardType='phone-pad' 
                         placeholder='Adicione seu numero de telefone' />
-                    <Input label="Situação" placeholder="Ativo" />
-                    <Input label="Email" keyboardType='email-address' placeholder="Digite seu email" />
-                    <Input label="Numero OS" placeholder="123456" />
-                    <Input label="Hospital" placeholder="HU-UFS" />
-                    <Input multiline={true} numberOfLines={4} style={{marginBottom: 32}}  label="Descrição" placeholder="Digite a descrição do problema" />
+                    <Input label="Equipamento" placeholder="Informe o número de serie" />
+                    <PickerContainer >
+                        <PickerLabel>Localização do Equipamento</PickerLabel>
+                        <Picker selectedValue={equipLocation} onValueChange={setEquipLocation} style={{backgroundColor: "#E5E5E5"}}>
+                            <Picker.Item label="US (Unidade de Saúde)" value="US (Unidade de Saúde)Ativo" />
+                            <Picker.Item label="NEC (Núcleo de Engenharia Clínica)" value="NEC (Núcleo de Engenharia Clínica)" />
+                        </Picker>
+                    </PickerContainer>
+                    <PickerContainer>
+                        <PickerLabel>Situação do Equipamento</PickerLabel>
+                        <Picker selectedValue={selectedSituation} onValueChange={setSelectedSituation} style={{backgroundColor: "#E5E5E5"}}>
+                            <Picker.Item label="Parado" value="Parado" />
+                            <Picker.Item label="Em Uso Parcial/Normal" value="Em Uso Parcial/Normal" />
+                        </Picker>
+                    </PickerContainer>
+                    <Input label="Localização Física" placeholder="Localização Física (obrigatório se estiver na US)" />
+                    <PickerContainer>
+                        <PickerLabel>Prioridade</PickerLabel>
+                        <Picker selectedValue={priority} onValueChange={setPriority} style={{backgroundColor: "#E5E5E5"}}>
+                            <Picker.Item label="Normal" value="Normal" />
+                            <Picker.Item label="Baixa" value="Baixa" />
+                            <Picker.Item label="Urgente" value="Urgente" />
+                        </Picker>
+                    </PickerContainer>
+                    <Input label="Responsável" placeholder="Informe o responsável" />
+                    <PickerContainer>
+                        <PickerLabel>Sintomas</PickerLabel>
+                        <Picker selectedValue={symptoms} onValueChange={setSymptoms} style={{backgroundColor: "#E5E5E5"}}>
+                            {sintomas.map(sintoma => {
+                                return (
+                                    <Picker.Item key={sintoma} label={sintoma.toUpperCase()} value={sintoma} />
+                                )
+                            })}
+                        </Picker>
+                    </PickerContainer>
+                    <Input multiline={true} numberOfLines={4} style={{marginBottom: 32}}  label="Informações Adicionais" placeholder="Digite a descrição do problema" />
 
                     <Button title='Enviar' onPress={() => {props.navigation.navigate("Succeed")}} />
                 </Wrapper>

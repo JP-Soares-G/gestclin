@@ -43,23 +43,23 @@ const Alert = (props) => {
             && hourNow === hour 
             && dayNow === day 
             && monthNow === month 
-            && yearNow === year ) return (secNow - sec) + " s";
+            && yearNow === year ) return Math.abs(secNow - sec) + " s";
 
         if( hourNow === hour 
             && dayNow === day 
             && monthNow === month 
-            && yearNow === year ) return (minNow - min) + " m";
+            && yearNow === year ) return Math.abs(minNow - min) + " m";
 
         if( dayNow === day 
             && monthNow === month 
-            && yearNow === year ) return (hourNow - hour) + " h";
+            && yearNow === year ) return Math.abs(hourNow - hour) + " h";
 
         if( monthNow === month 
-            && yearNow === year ) return (dayNow - day) + " d";
+            && yearNow === year ) return Math.abs(dayNow - day) + " d";
 
-        if(yearNow === year ) return (monthNow - month) + " M";
+        if(yearNow === year ) return Math.abs(monthNow - month) + " M";
 
-        return (yearNow - year) + " Y"
+        return Math.abs(yearNow - year) + " Y"
     
     }
     // "notifications": [

@@ -28,3 +28,16 @@ export const Wrapper = styled.View`
     margin: auto 0;
     padding: 19px;
 `
+
+export const PickerContainer = styled.View`
+    margin-bottom: 16px;
+`
+
+export const PickerLabel = styled.Text`
+    text-transform: uppercase;
+    color: ${({theme}) => theme.COLORS.DARK};
+    font-family: ${({theme}) => theme.FONTS.REGULAR};
+    letter-spacing: 1px;
+
+    margin-bottom: 8px;
+`
