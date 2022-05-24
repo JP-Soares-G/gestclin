@@ -63,4 +63,4 @@ buck-out/
 Test.css
 .env
 
-android/app/src/main/res/**
+android/app/src/main/
