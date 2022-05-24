@@ -12,8 +12,7 @@ apply plugin: 'com.onesignal.androidsdk.onesignal-gradle-plugin'
 apply plugin: "com.android.application"
 
 import com.android.build.OutputFile
-
-
+ 
 
 /**
  * The react.gradle file registers a task for each build variant (e.g. bundleDebugJsAndAssets
@@ -277,6 +276,7 @@ android {
 }
 
 dependencies {
+
     implementation fileTree(dir: "libs", include: ["*.jar"])
 
     //noinspection GradleDynamicVersion
@@ -304,6 +304,7 @@ dependencies {
     } else {
         implementation jscFlavor
     }
+    implementation project(':react-native-keychain')
 }
 
 if (isNewArchitectureEnabled()) {

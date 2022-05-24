@@ -19,7 +19,7 @@ export const Message = styled.Text`
 `
 
 export const Time = styled.Text`
-    flex: 1;
-    max-width: 32px;
-    text-align: right;
+    // flex: 1;
+    // max-width: 32px;
+    // text-align: right;
 `

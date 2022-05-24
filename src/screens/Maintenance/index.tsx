@@ -5,13 +5,15 @@ import Button from '../../components/Button'
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons'
 import { BackButton, Container, Header, Title, Wrapper } from './styles'
 import axios from 'axios'
-import { ScrollView } from 'react-native'
+import { ScrollView, View } from 'react-native'
 import Succeed from '../Succeed'
 
 const Maintenance = (props) => {
+ 
 
     const [message, setMessage] = useState("")
     const [title, setTitle] = useState("")
+    const [isLoading, setIsLoading] = useState(false)
     
     const sintomas = ["abaixo ou acima do nível", 
         "alarme",
@@ -64,8 +66,8 @@ const Maintenance = (props) => {
     return (
         <Container>
             <Header>
-                <BackButton onPress={() => props.navigation.goBack()}>
-                    <SimpleLineIcons name="arrow-left" size={20} color="#000" />
+                <BackButton style={{padding: 10, margin: -10}} onPress={() => props.navigation.goBack()}>
+                        <SimpleLineIcons name="arrow-left" size={20} color="#000" />
                 </BackButton>
                 <Title>Manutenção Corretiva</Title>
             </Header>
@@ -85,7 +87,7 @@ const Maintenance = (props) => {
                     <Input label="Hospital" placeholder="HU-UFS" />
                     <Input multiline={true} numberOfLines={4} style={{marginBottom: 32}}  label="Descrição" placeholder="Digite a descrição do problema" />
 
-                    <Button title='Enviar' onPress={() => {props.navigation.navigate("Succeed")}} />
+                    <Button isLoading={isLoading} title='Enviar' onPress={() => {props.navigation.navigate("Succeed")}} />
                 </Wrapper>
             </ScrollView>
         </Container>

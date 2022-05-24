@@ -5,6 +5,8 @@ import { CleanButtonContainer, CleanButtonText, Container, Header, PlusButton, T
 import AntDesing from 'react-native-vector-icons/AntDesign'
 import axios from 'axios'
 import {BASE_URL, REST_API_KEY, APP_ID} from '@env'
+import api from "../../services/api";
+import KeyChain, { SharedWebCredentials, UserCredentials } from "react-native-keychain"
 
 // const alerts = [
 //     {
@@ -81,6 +83,18 @@ const Alert = (props) => {
     //     },
     // ]
     useEffect(() => {
+        async function render() {
+            const info = await KeyChain.getGenericPassword() as UserCredentials;
+            try {   
+                const {data} = await api.get('/usuarios/busca?email='+ encodeURI(info.username)) 
+                setAlerts(data.alertasRecebidos)
+            } catch(errors) {
+                console.log(errors)
+            }
+        }
+        render();
+
+
         // &limit=50&offset=:offset
         const header = {
             headers: {
@@ -108,7 +122,7 @@ const Alert = (props) => {
     const renderItem = ({ item }) => {
     
         return (
-            <AlertItem message={item.message} succeed={item.succeed} time={item.time} />
+            <AlertItem titulo={item.titulo} message={item.descricao} succeed={item.succeed} time={item.envio} />
         );
     };
     

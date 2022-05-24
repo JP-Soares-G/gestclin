@@ -1,15 +1,19 @@
 import React from 'react'
-import { TouchableOpacityProps } from 'react-native'
+import { TouchableOpacityProps, ActivityIndicator } from 'react-native'
 import { Container, ButtonText } from './style'
 
 interface Props extends TouchableOpacityProps {
     title: string;
+    isLoading: boolean;
 }
 
-const Button = ({title, ...rest}: Props) => {
+const Button = ({title, isLoading, ...rest}: Props) => {
     return (
         <Container {...rest}>
-            <ButtonText>{title}</ButtonText>
+            {
+            isLoading ? <ActivityIndicator size={22} color="white" />
+                      : <ButtonText>{title}</ButtonText> 
+            }
         </Container>
     )
 }

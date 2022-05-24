@@ -14,13 +14,15 @@ interface Props {
     time: string;
 }
 
-const AlertItem = ({succeed, message, time}: Props) => {
+const AlertItem = ({titulo, succeed, message, time}: Props) => {
     
     return (
         <Container>
             <Icon style={{flex: 1, maxWidth: 32}} succeed={succeed} />
+ 
             <Message>
-                {message}
+            {message}{"\n"}
+            { titulo }
             </Message>
             <Time>
                 {time}
