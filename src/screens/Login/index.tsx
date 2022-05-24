@@ -10,7 +10,7 @@ const Login = props => {
             <Container>
                 <Wrapper>
                     <Title>Login</Title>
-                    <Subtitle>Bem-Vindo de volta!</Subtitle>
+                    <Subtitle>Bem-Vindo de volta! </Subtitle>
                     <Input label="Email" placeholder="Digite seu Email" />
                     <Input label="Senha" placeholder="Digite sua Senha" />
                     <Button onPress={() => props.navigation.navigate("Home")} style={{marginTop: 32, marginBottom: 32}} title="Entrar" />
