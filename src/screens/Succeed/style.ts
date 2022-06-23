@@ -8,8 +8,7 @@ interface Props {
 export const Container = styled(View)<Props>`
     flex: 1;
     
-    justify-content: center;
-    // align-items: center;
+    justify-content: center; 
     
 `
 
@@ -25,8 +24,7 @@ export const TitleWrapper = styled.View`
 `
 
 export const Title = styled.Text`
-    
-    // background-color: grey;
+     
     font-size: 26px;
     text-align: center;
     

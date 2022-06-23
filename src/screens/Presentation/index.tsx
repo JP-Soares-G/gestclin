@@ -6,7 +6,7 @@ import Button from '../../components/Button'
 
 const Presentation = props => {
     return (
-        <ScrollView showsVerticalScrollIndicator={false} horizontal={false} style={{flex: 1}}>
+        // <ScrollView showsVerticalScrollIndicator={false} horizontal={false} style={{flex: 1}}>
             <Container>
                 <ImageBackground resizeMode='cover' source={presentationBg} />
                 <ContentWrapper>
@@ -18,7 +18,7 @@ const Presentation = props => {
                     <Button onPress={() => props.navigation.navigate('Login')} title="Login" />
                 </ContentWrapper>
             </Container>
-        </ScrollView>
+        // </ScrollView>
     )
 }
 

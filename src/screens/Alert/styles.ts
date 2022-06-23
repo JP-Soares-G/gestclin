@@ -1,8 +1,6 @@
 import styled from 'styled-components/native'
 
-export const Container = styled.View`
-
-`
+export const Container = styled.View``
 
 export const Header = styled.View`
     padding: 19px;
@@ -25,9 +23,7 @@ export const Title = styled.Text`
     font-family:  ${({theme}) => theme.FONTS.REGULAR};
 `
 
-export const PlusButton = styled.TouchableHighlight`
-    border-radius: 5px;
-`
+ 
 
 export const CleanButtonContainer = styled.TouchableOpacity`
     width: 100%;
@@ -39,3 +35,5 @@ export const CleanButtonText = styled.Text`
     font-size: 16px;
     text-transform: uppercase;
 `
+
+export const AddAlertButton = styled.TouchableHighlight``

@@ -4,8 +4,10 @@ import { NavigationContainer } from '@react-navigation/native';
 import KeyChain from "react-native-keychain"
 
 import AuthStack from "./AuthStack";
-import { ActivityIndicator, Alert, View } from "react-native";
+import { ActivityIndicator, Alert, ToastAndroid, View } from "react-native";
 import api from "../services/api";
+import Toast from 'react-native-toast-message'
+import Button from "../components/Button";
 
 const Navigation = props => {
     const [initialState, setInitialState] = useState();
@@ -14,7 +16,7 @@ const Navigation = props => {
     useEffect(() => {
         const restoreState = async () => {
             try {
-                const { username, password } = await KeyChain.getGenericPassword() as { username: string, password: string };        
+                const { username, password } = await KeyChain.getGenericPassword() as { username: string, password: string };
                 // Alert.alert(username, password);
                 // await api.post("/login", {username, password})
                 // await api.post("/login", {username, password})
@@ -23,7 +25,7 @@ const Navigation = props => {
                 const state = savedStateString ? JSON.parse(savedStateString.password) : undefined;
 
                 if (state !== undefined) {
-                        setInitialState(state);
+                    setInitialState(state);
                 }
             } finally {
                 setIsReady(true);
@@ -34,21 +36,21 @@ const Navigation = props => {
             restoreState();
         }
     }, [isReady]);
-    if(!isReady) {
+    if (!isReady) {
         return (
-            <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-                <ActivityIndicator size={50}/>
+            <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+                <ActivityIndicator size={50} />
             </View>
         )
     }
 
-    return (
+    return ( 
         <NavigationContainer initialState={initialState}
-            onStateChange={(state) =>
-                KeyChain.setInternetCredentials("ESTADO_TELA","ESTADO_TELA", JSON.stringify(state))
+            onStateChange={async (state) =>
+               await KeyChain.setInternetCredentials("ESTADO_TELA","ESTADO_TELA", JSON.stringify(state))
             }>
-            <AuthStack />
-        </NavigationContainer>
+            <AuthStack /> 
+        </NavigationContainer>  
     )
 }
 

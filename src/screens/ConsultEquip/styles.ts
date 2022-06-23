@@ -6,7 +6,7 @@ export const Container = styled.View`
 
 export const Header = styled.View`
     flex-direction: row;
-    align-items: center; 
+    align-items: center;
 
     margin-bottom: 16px;
     border-bottom-width: 1px;
@@ -27,4 +27,15 @@ export const Title = styled.Text`
 export const Wrapper = styled.View`
     margin: auto 0;
     padding: 19px;
+`
+export const PickerContainer = styled.View`
+    margin-bottom: 16px;
+`
+
+export const PickerLabel = styled.Text`
+    text-transform: uppercase;
+    color: ${({theme}) => theme.COLORS.DARK};
+    font-family: ${({theme}) => theme.FONTS.REGULAR};
+    letter-spacing: 1px;
+    margin-bottom: 8px;
 `

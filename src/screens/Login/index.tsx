@@ -1,59 +1,74 @@
 import React, { useState } from 'react'
-import { Container, Subtitle, Text, Title, Wrapper } from './styles'
+import { Alert, ScrollView } from 'react-native'
 import Button from '../../components/Button'
 import Input from '../../components/Input'
-import { View, Alert, ScrollView, ActivityIndicator } from 'react-native'
+import { Container, Subtitle, Title, Wrapper } from './styles'
 
-import HomeTab from '../../routes/HomeTab'
 
 import api from '../../services/api'
-import axios from 'axios'
 
-import KeyChain from "react-native-keychain"
+import KeyChain, { UserCredentials } from "react-native-keychain"
 
-async function save(key, value) { 
+async function save(key, value) {
 }
 
 const Login = props => {
-    const [email, setEmail] = useState("")
-    const [senha, setSenha] = useState("")
-    const [isLoading, setIsLoading] = useState(false);
+  const [email, setEmail] = useState("juanbomfim22@academico.ufs.br")
+  const [senha, setSenha] = useState("pjJr&fnhCopq") 
+  const [isLoading, setIsLoading] = useState(false);
 
-    const onLoginPressed = async () => { 
-        if(email.length == 0 || senha.length == 0) {
-            return Alert.alert("Erro", "Preencha os campos")
-        }; 
-        setIsLoading(true)
+  const onLoginPressed = async () => {
+    if (email.length == 0 || senha.length == 0) {
+      return Alert.alert("Erro", "Preencha os campos")
+    };
+    setIsLoading(true)
 
-        try {
-          const {headers} = await api.post("/login", {email, senha}, {withCredentials:true})
+    try {
+      console.log(`Logging with: ${email} ${senha} `)
+      const { headers } = await api.post("/login", { email, senha })
 
-          await KeyChain.setInternetCredentials("Cookie", "Cookie", headers.cookie)
-          await KeyChain.setGenericPassword(email, senha)
-          
-          props.navigation.navigate("Home");
+      await KeyChain.setInternetCredentials("Cookie", "Cookie", headers.cookie)
+      await KeyChain.setGenericPassword(email, senha)
 
-        } catch(errors) { 
-          let { error, message } = errors.response.data
-          Alert.alert(error, message)
-        } finally {
-          setIsLoading(false)
-        }
+      async function run() {
+        const { username } = await KeyChain.getGenericPassword() as UserCredentials; 
+        const { data } = await api.get(`/usuarios/busca?email=${username}`)
+        console.log("DATA:", data)
+        await KeyChain.setInternetCredentials("NOME", "NOME", data.nome)
+        await KeyChain.setInternetCredentials("INFOS", "INFOS", JSON.stringify(
+          {
+            id: data.id,
+            nome: data.nome,
+            telefone: data.telefone,
+            perfis: data.perfis,
+          }))
       }
+      await run();
+      props.navigation.navigate("Home");
 
-    return (
-        <ScrollView horizontal={false} style={{flex: 1}} contentContainerStyle={{flexGrow: 1}}>
-            <Container>
-                <Wrapper>
-                    <Title>Login</Title>
-                    <Subtitle>Bem-Vindo de volta!</Subtitle>
-                    <Input value={email} onChangeText={text => setEmail(text)} label="Email" placeholder="Digite seu Email" />
-                    <Input value={senha} onChangeText={text => setSenha(text)} secureTextEntry={true} label="Senha" placeholder="Digite sua Senha" />
-                    <Button isLoading={isLoading} onPress={onLoginPressed} style={{marginTop: 32, marginBottom: 32}} title="Entrar" />
-                </Wrapper>
-            </Container>
-        </ScrollView>
-    )
+    } catch (errors) {
+      let { error, message } = errors.response.data
+      console.log(errors.response)
+      // Alert.alert(error, message)
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
+  return (
+    <ScrollView horizontal={false} style={{ flex: 1 }} keyboardDismissMode='interactive' keyboardShouldPersistTaps='handled'
+      contentContainerStyle={{ flexGrow: 1 }}>
+      <Container>
+        <Wrapper>
+          <Title>Login</Title>
+          <Subtitle>Seja bem-vindo!</Subtitle>
+          <Input value={email} onChangeText={text => setEmail(text.trim())} label="email" placeholder="Digite seu Email" />
+          <Input value={senha} onChangeText={text => setSenha(text)} label="senha" placeholder="Digite sua Senha" />
+          <Button disabled={isLoading} isLoading={isLoading} onPress={onLoginPressed} style={{ marginTop: 32, marginBottom: 32 }} title="Entrar" />
+        </Wrapper>
+      </Container>
+    </ScrollView>
+  )
 }
 
 export default Login

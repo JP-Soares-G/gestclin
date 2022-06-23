@@ -4,10 +4,10 @@ import { Container, ButtonText } from './style'
 
 interface Props extends TouchableOpacityProps {
     title: string;
-    isLoading: boolean;
+    isLoading?: boolean;
 }
 
-const Button = ({title, isLoading, ...rest}: Props) => {
+const Button = ({title, isLoading=false, ...rest}: Props) => {
     return (
         <Container {...rest}>
             {
